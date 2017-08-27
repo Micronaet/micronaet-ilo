@@ -49,8 +49,7 @@ class IloServer(orm.Model):
     
     _name = 'ilo.server'
     _description = 'HP iLo Server'
-    _rec_name = 'hostname'
-    _order = 'hostname'
+    _order = 'name'
 
     def ilo_connect(self, cr, uid, ids, context=None):
         ''' Connect to server passed
@@ -62,20 +61,20 @@ class IloServer(orm.Model):
             login=server_proxy.username, 
             password=server_proxy.password, 
             timeout=server_proxy.timeout, 
-            port=server_proxy.port, 
+            port=server_proxy.port,
             #protocol=None,
             #delayed=False, 
             #ssl_version=None
             )
         return ilo    
 
-    def ilo_temperature_info(self, cr, uid, ids, context=context):
+    def ilo_temperature_info(self, cr, uid, ids, context=None):
         ''' Environment temperature info
         '''
         #print ilo.get_fw_version()
         #print ilo.get_uid_status()
         #print ilo.get_embedded_health()
-        
+        import pdb; pdb.set_trace()
         ilo = self.ilo_connect(cr, uid, ids, context=context)
         temperature = ilo.get_embedded_health()['temperature']
 
@@ -91,12 +90,14 @@ class IloServer(orm.Model):
         return True
         
     _columns = {
+        'name': fields.char('Server description', size=64, required=True),
         'hostname': fields.char('Hostname', size=64, required=True),
         'port': fields.integer('Port', required=True),
         'timeout': fields.integer('Timeout', required=True),
-        'username': fields.char('Hostname', size=64, required=True),
-        'password': fields.char('Hostname', size=64, required=True),
-        'hostname': fields.char('Hostname', size=64, required=True),            
+        'username': fields.char('Username', size=64, required=True),
+        'password': fields.char('Password', size=64, required=True),
+        
+        'info_temperature': fields.text('Info Temperature'),
         #protocol
         #delayed
         #ssl_version

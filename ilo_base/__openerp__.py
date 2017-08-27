@@ -18,10 +18,11 @@
 ###############################################################################
 
 {
-    'name': '',
+    'name': 'Ilo Management',
     'version': '0.1',
-    'category': '',
+    'category': 'Log',
     'description': '''        
+        Ilo Management server for log information
         ''',
     'author': 'Micronaet S.r.l. - Nicola Riolini',
     'website': 'http://www.micronaet.it',
@@ -32,8 +33,8 @@
     'init_xml': [],
     'demo': [],
     'data': [
-        #'security/ir.model.access.csv',    
-        #'_view.xml',
+        'security/ir.model.access.csv',    
+        'ilo_view.xml',
         ],
     'active': False,
     'installable': True,
